@@ -23,10 +23,10 @@ def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 
-# Generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
     return generate_sitemap(app)
+
 
 
 @app.route('/members', methods=['GET'])
@@ -35,7 +35,36 @@ def handle_hello():
     members = jackson_family.get_all_members()
     response_body = {"hello": "world",
                      "family": members}
-    return jsonify(response_body), 200
+    return jsonify(members), 200
+
+
+# @app.route('/members/<int:id', methods=['GET'])
+# def get_each_member(id):
+#      member = jackson_family.get_member()
+#       return jsonify(member), 200
+
+def handle_add_member():
+    data = request.get_json()
+
+    jackson_family.add_member(data)
+    return jsonify(data), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
